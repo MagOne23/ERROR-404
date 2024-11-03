@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="main-1.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drum kit Project</title>
+</head>
+<body>
+
+   <!-- Project 1 -->
+
+
+   <div class="keys">
+
+     <div data-key="65" class="key">
+        <kbd>A</kbd>
+        <span class="sound">Clap</span>
+     </div>
+  
+     <div data-key="83" class="key">
+        <kbd>S</kbd>
+        <span class="sound">HiHat</span>
+     </div>
+
+     <div data-key="68" class="key">
+        <kbd>D</kbd>
+        <span class="sound">Kick</span>
+     </div>
+   
+     <div data-key="70" class="key">
+        <kbd>F</kbd>
+        <span class="sound">OpenHat</span>
+     </div>
+ 
+     <div data-key="71" class="key">
+        <kbd>G</kbd>
+        <span class="sound">Boom</span>
+     </div>
+ 
+     <div data-key="72" class="key">
+        <kbd>H</kbd>
+        <span class="sound">Clap</span>
+     </div>
+  
+     <div data-key="74" class="key">
+        <kbd>J</kbd>
+        <span class="sound">Snare</span>
+     </div>
+
+     <div data-key="75" class="key">
+        <kbd>K</kbd>
+        <span class="sound">Tom</span>
+     </div>
+
+     <div data-key="76" class="key">
+        <kbd>L</kbd>
+        <span class="sound">Tink</span>
+     </div>
+     
+   </div>
+
+   <audio data-key="65" src="assets/Clap.wav"></audio>
+   <audio data-key="83" src="assets/HiHat.wav"></audio>
+   <audio data-key="68" src="assets/Kick.wav"></audio>
+   <audio data-key="70" src="assets/OpenHat.wav"></audio>
+   <audio data-key="71" src="assets/Boom.wav"></audio>
+   <audio data-key="72" src=""></audio>
+   <audio data-key="74" src=""></audio>
+   <audio data-key="75" src=""></audio>
+   <audio data-key="76" src=""></audio>
+
+
+<script>
+
+   function playSound (e)
+   {
+      const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`)
+      
+      const key = document.querySelector(`.key[data-key="${e.keyCode}"`)
+
+      if (!audio) return;
+      audio.currentTime = 0;
+      audio.play();
+      key.classList.add('playing')
+   } 
+
+   function removeTransition(e) 
+   {
+   if(e.propertyName !== 'transform') return;
+   this.classList.remove('playing')
+   }
+
+   const keys = document.querySelectorAll('.key')
+
+
+   keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+
+   window.addEventListener('keydown', playSound)
+
+</script>
+
+<style>
+
+ *
+{
+  font-family: cursive;
+}
+
+body
+{
+  background-image: url(assets/drums.jpg);
+  height: 90vh;
+  background-color: rgb(30, 34, 39);
+  color: aliceblue;
+  font-size: 2rem;
+  display: flex; align-items: center; justify-content: center;
+}
+
+span
+{
+  color: rgb(255, 140, 0);
+}
+
+.keys
+{
+  top: 50%;
+  height: auto; width: 1500px;
+  display: flex; flex-direction: row;
+}
+
+.key
+{
+  background-color: rgba(0, 0, 0, 0.5);
+  flex-direction: column;
+  display: flex; align-items: center; justify-content: space-evenly; 
+  height: 80px; width: 90px;
+  border: 2px solid rgb(115, 13, 84); border-radius: 7px;
+  margin: auto;
+  transition: all 0.1s;
+}
+
+.playing
+{
+  transform: scale(1.1);
+  border-color: rgb(203, 9, 145); box-shadow: 0px 0px 20px 5px rgb(115, 13, 84);
+}
+
+span
+{
+  font-size: 1rem;
+}
+
+</style>
+
+</body>
+</html>
